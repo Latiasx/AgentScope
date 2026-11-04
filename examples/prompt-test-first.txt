@@ -1,0 +1,1 @@
+Fix the bug in validate.py: create_user({}) currently raises an exception, but it should return (400, {"error": "invalid email"}). First run `python -m unittest -v` to reproduce the failure. Inspect validate.py, patch only that file, and run the tests again. Do not modify test_validate.py. Avoid network requests or new dependencies.

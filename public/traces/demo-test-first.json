@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "demo-test-first",
+  "taskId": "invalid-input-500",
+  "taskTitle": "The API returns 500 instead of 400",
+  "strategy": "Test-first",
+  "description": "Reproduce the failure, add a regression test, then patch the endpoint.",
+  "source": "illustrative",
+  "model": "Illustrative scenario",
+  "events": [
+    {"id":"t1","kind":"task","title":"Task received","detail":"A POST /users endpoint responds with 500 for missing email input. Expected: 400.","status":"info","atMs":0},
+    {"id":"t2","kind":"tool","title":"Inspect existing test suite","detail":"The suite covers successful user creation but not invalid requests.","command":"ls tests && cat tests/users.test.ts","status":"info","atMs":800},
+    {"id":"t3","kind":"edit","title":"Create regression test","detail":"Added a test asserting a 400 response when email is missing.","status":"info","atMs":1800},
+    {"id":"t4","kind":"warning","title":"Confirm the failure","detail":"The new test fails: expected 400, received 500. This reproduces the bug.","command":"npm test -- users.test.ts","status":"error","atMs":3000},
+    {"id":"t5","kind":"tool","title":"Inspect route handler","detail":"Identified an unchecked email access in the request handler.","command":"cat src/routes/users.ts","status":"info","atMs":4300},
+    {"id":"t6","kind":"edit","title":"Implement validation","detail":"Added explicit input validation and a 400 response for invalid requests.","status":"success","atMs":5900},
+    {"id":"t7","kind":"tool","title":"Run test suite","detail":"All tests pass, including the new regression test.","command":"npm test","status":"success","atMs":7500},
+    {"id":"t8","kind":"finish","title":"Validated patch","detail":"The expected behavior is restored, with regression coverage for future changes.","status":"success","atMs":8200}
+  ],
+  "metrics": {"inputTokens": 13200,"outputTokens": 1800,"toolCalls": 4,"durationMs": 8200},
+  "evaluation": {"status":"passed","testsPassed": 6,"testsTotal": 6,"notes":"Illustrative values only — not independently measured."}
+}

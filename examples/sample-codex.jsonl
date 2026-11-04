@@ -1,0 +1,10 @@
+{"type":"thread.started","thread_id":"sample"}
+{"type":"turn.started"}
+{"type":"item.started","item":{"id":"tool1","type":"command_execution","command":"python -m unittest -v","status":"in_progress"}}
+{"type":"item.completed","item":{"id":"tool1","type":"command_execution","command":"python -m unittest -v","aggregated_output":"TEST LOG TEXT deliberately excluded by normalizer","exit_code":1,"status":"completed"}}
+{"type":"item.started","item":{"id":"edit1","type":"file_change","status":"in_progress"}}
+{"type":"item.completed","item":{"id":"edit1","type":"file_change","status":"completed"}}
+{"type":"item.started","item":{"id":"tool2","type":"command_execution","command":"python -m unittest -v","status":"in_progress"}}
+{"type":"item.completed","item":{"id":"tool2","type":"command_execution","aggregated_output":"OK","exit_code":0,"status":"completed"}}
+{"type":"item.completed","item":{"id":"message1","type":"agent_message","text":"Fixed the issue."}}
+{"type":"turn.completed","usage":{"input_tokens":1823,"cached_input_tokens":201,"output_tokens":203,"reasoning_output_tokens":64}}

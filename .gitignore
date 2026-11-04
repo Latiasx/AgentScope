@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.vite/
+.DS_Store
+*.log
+__pycache__/
+.pytest_cache/
+data/raw/
+private/
+.env
+.env.*
+!.env.example
+data/workspaces/
+.venv

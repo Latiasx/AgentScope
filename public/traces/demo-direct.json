@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "demo-direct",
+  "taskId": "invalid-input-500",
+  "taskTitle": "The API returns 500 instead of 400",
+  "strategy": "Direct patch",
+  "description": "Find the likely bug quickly, patch it, and run a basic verification.",
+  "source": "illustrative",
+  "model": "Illustrative scenario",
+  "events": [
+    {"id":"d1","kind":"task","title":"Task received","detail":"A POST /users endpoint responds with 500 for missing email input. Expected: 400.","status":"info","atMs":0},
+    {"id":"d2","kind":"tool","title":"Inspect route handler","detail":"The request handler attempts to access email without checking if it exists.","command":"cat src/routes/users.ts","status":"info","atMs":550},
+    {"id":"d3","kind":"edit","title":"Patch validation","detail":"A short conditional guard returns HTTP 400 when email is missing.","status":"success","atMs":1800},
+    {"id":"d4","kind":"tool","title":"Run focused test","detail":"The invalid-email request now returns status 400.","command":"npm test -- users.test.ts","status":"success","atMs":3100},
+    {"id":"d5","kind":"warning","title":"Coverage gap","detail":"The agent did not add a regression test, so the fix could be unintentionally removed later.","status":"error","atMs":4300},
+    {"id":"d6","kind":"finish","title":"Patch proposed","detail":"The target behavior appears fixed, but the quality gate notes missing regression coverage.","status":"success","atMs":4900}
+  ],
+  "metrics": {"inputTokens": 8100,"outputTokens": 980,"toolCalls": 2,"durationMs": 4900},
+  "evaluation": {"status":"passed","testsPassed": 5,"testsTotal": 5,"notes":"Illustrative values only — not independently measured."}
+}
